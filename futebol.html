@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Futebol</title>
+
+<style>
+body{
+    background:#111;
+    color:#fff;
+    font-family:Arial;
+    padding:20px;
+}
+
+h1{
+    text-align:center;
+}
+
+#jogos{
+    display:grid;
+    gap:15px;
+}
+
+.card{
+    background:#1c1c1c;
+    padding:20px;
+    border-radius:15px;
+}
+</style>
+
+</head>
+<body>
+
+<h1>⚽ Jogos do Dia</h1>
+
+<div id="jogos"></div>
+
+<script>
+const API_KEY = "bfde9a9257fc40aa89fa785d8ff219c8";
+
+fetch("https://api.football-data.org/v4/matches", {
+    headers: {
+        "X-Auth-Token": API_KEY
+    }
+})
+.then(res => res.json())
+.then(data => {
+
+    let html = "";
+
+    data.matches.forEach(jogo => {
+
+        html += `
+        <div class="card">
+
+            <h2>
+                ${jogo.homeTeam.name}
+                x
+                ${jogo.awayTeam.name}
+            </h2>
+
+            <p>🏆 ${jogo.competition.name}</p>
+
+            <p>
+            🕒 ${
+                new Date(jogo.utcDate)
+                .toLocaleString("pt-BR")
+            }
+            </p>
+
+            <p>📍 ${jogo.status}</p>
+
+        </div>
+        `;
+    });
+
+    document.getElementById("jogos").innerHTML = html;
+
+})
+.catch(erro => {
+
+    console.error(erro);
+
+    document.getElementById("jogos").innerHTML =
+    "<h2>Erro ao carregar os jogos.</h2>";
+
+});
+</script>
+
+</body>
+</html>
