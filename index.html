@@ -42,7 +42,17 @@ fetch("/.netlify/functions/jogos")
 
     let html = "";
 
-    data.matches.forEach(jogo => {
+    data.matches
+.filter(jogo =>
+[
+"Campeonato Brasileiro Série A",
+"Campeonato Brasileiro Série B",
+"Copa do Brasil",
+"CONMEBOL Libertadores",
+"CONMEBOL Sudamericana"
+].includes(jogo.competition.name)
+)
+.forEach(jogo => {
 
         html += `
         <div class="card">
