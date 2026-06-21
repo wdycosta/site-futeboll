@@ -1,0 +1,41 @@
+<script>
+fetch("/.netlify/functions/jogos")
+.then(res => res.json())
+.then(data => {
+
+    let html = "";
+
+    data.matches.forEach(jogo => {
+
+        html += `
+        <div class="card">
+            <h2>
+                ${jogo.homeTeam.name}
+                x
+                ${jogo.awayTeam.name}
+            </h2>
+
+            <p>🏆 ${jogo.competition.name}</p>
+
+            <p>
+                🕒 ${new Date(jogo.utcDate).toLocaleString('pt-BR')}
+            </p>
+
+            <p>📍 ${jogo.status}</p>
+        </div>
+        `;
+
+    });
+
+    document.getElementById("jogos").innerHTML = html;
+
+})
+.catch(erro => {
+
+    console.error(erro);
+
+    document.getElementById("jogos").innerHTML =
+    "<h2>Erro ao carregar os jogos.</h2>";
+
+});
+</script>
