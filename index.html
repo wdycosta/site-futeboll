@@ -149,7 +149,12 @@ fetch("/.netlify/functions/jogos")
     return data;
 })
 .then(data => {
-    console.log(JSON.stringify(data, null, 2));
+
+    console.log(data.matches.map(jogo => ({
+        code: jogo.competition?.code,
+        nome: jogo.competition?.name
+    })));
+
     const jogos = document.getElementById("jogos");
     const matches = Array.isArray(data.matches)
     ? data.matches
