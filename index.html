@@ -136,6 +136,8 @@ function renderMatch(jogo) {
     return card;
 }
 
+console.log("SCRIPT INICIADO");
+
 fetch("/.netlify/functions/jogos")
 .then(async res => {
     const data = await res.json().catch(() => ({}));
@@ -147,6 +149,7 @@ fetch("/.netlify/functions/jogos")
     return data;
 })
 .then(data => {
+    console.log("DADOS RECEBIDOS", data);
     console.log(data.matches.map(jogo => ({
     code: jogo.competition?.code,
     nome: jogo.competition?.name
