@@ -96,9 +96,9 @@ exports.handler = async (event = {}) => {
       };
     }
 
-    const matches = Array.isArray(dados.matches)
-      ? dados.matches.filter(isBrazilianOrSouthAmericanMatch)
-      : [];
+   const matches = Array.isArray(dados.matches)
+  ? dados.matches
+  : [];
 
     return {
       statusCode: 200,
